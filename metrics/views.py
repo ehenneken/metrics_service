@@ -24,10 +24,18 @@ class Metrics(Resource):
             include_tori = request.json['tori']
         except:
             include_tori = True
+        try:
+            types = request.json['types']
+        except:
+            types = ['basic','citations','histograms','indicators','timeseries']
+        try:
+            histograms = request.json['histograms']
+        except:
+            histograms = ['publications','reads','downloads','citations']
         if len(bibcodes) > current_app.config['MAX_INPUT']:
             return {'msg': 'number of submitted bibcodes exceeds maximum number'}, 400
         try:
-            results = generate_metrics(bibcodes=bibcodes,tori=include_tori)
+            results = generate_metrics(bibcodes=bibcodes,tori=include_tori,types=types,histograms=histograms)
         except Exception, err:
             if str(err) == 'record with missing metrics data':
                 return {'msg': 'Unable to get results! (%s)' % err}, 400
@@ -42,7 +50,7 @@ class PubMetrics(Resource):
     rate_limit = [1000,60*60*24]
     def get(self, bibcode):
        try:
-           results = generate_metrics(bibcodes=[bibcode], types='statistics,histograms')
+           results = generate_metrics(bibcodes=[bibcode], types=['basic','histograms'], histograms=['publications'])
        except Exception, err:
             if str(err) == 'record with missing metrics data':
                 return {'msg': 'Unable to get results! (%s)' % err}, 400
