@@ -236,3 +236,7 @@ So, returning everything, the output looks like
 			'tori': { values },
 		}
 	}
+
+where, as before, the 'values' have the form
+
+    {year: value, year: value, ...}
