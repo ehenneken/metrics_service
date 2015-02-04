@@ -8,7 +8,7 @@ and do a request from the command line like so
 
 and you should get back all metrics data. You can also request a specific set of metrics by adding the `types` parameter in the JSON header. For example:
 
-   curl -H "Content-Type: application/json" -X POST -d '{"bibcodes":["1980ApJS...44..137K","1980ApJS...44..489B"],'types':['basic']}' http://localhost:4000
+    curl -H "Content-Type: application/json" -X POST -d '{"bibcodes":["1980ApJS...44..137K","1980ApJS...44..489B"],'types':['basic']}' http://localhost:4000
 
 which will return just the basic statistics for the set of bibcodes. The following values are allowed for the `types` list:
 
